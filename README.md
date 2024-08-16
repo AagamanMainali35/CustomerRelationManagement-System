@@ -9,12 +9,11 @@ Delete: Remove records from the database.
 The application features a clean and user-friendly interface for managing data and serves as a foundational example for building more complex Django applications.
 
 Features:
-
 User authentication
 Simple forms for data input
 Data validation and error handling
-Responsive design with modern styling
-Technologies Used:
 
+
+Technologies Used:
 Django
 HTML/CSS
