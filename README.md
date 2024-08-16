@@ -45,6 +45,7 @@ Responsive Design with Modern Styling 🎨
 
 
 
+
 **Technologies Used:**
 
 Django 🐍
