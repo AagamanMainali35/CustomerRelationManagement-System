@@ -1,1 +1,0 @@
-This folder must be creatied relative to the root directory folder along with project and it containds all the images uploaded to database in the system 
