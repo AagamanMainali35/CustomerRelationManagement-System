@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    {% load static %} <!-- Load the static template tag -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        table {
+            width: auto;
+            /* Let the table fit its content */
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            table-layout: auto;
+            /* Automatically adjust column widths based on content */
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #6a1b9a;
+            /* Changed to purple */
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td[colspan="4"] {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+
+        a:hover {
+            background-color: #4a148c;
+            /* Darker purple on hover */
+        }
+
+        a {
+            background-color: #6a1b9a;
+            /* Purple background */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: #ffffff;
+        }
+        .btn {
+            display: flex;
+            justify-content: center; /* Centers items horizontally */
+            margin-top: 20px; /* Optional: adds some space above the div */
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer List</h1>
+    <table>
+        <form action="{% url 'customerdetails' %}" method="post">
+              {% csrf_token %}
+            <thead>
+                <tr>
+                    <th>Sn.No</th>
+                    <th>Customer Name</th>
+                    <th>Date</th>
+                    <th>Purchased Product</th>
+                    <th>Profile Picture</th>
+                    {% if user == 'aagaman' %}
+                        <th>Actions</th>
+                    {% endif %}
+                    
+                </tr>
+            </thead>
+            <tbody>   
+                {% for customer in details %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ customer.c_name }}</td>
+                    <td>{{ customer.Date }}</td>
+                    <td>{{ customer.Purchase_product }}</td>
+                    <td>
+                        {% if customer.profilepic %}
+                        <img src="{{ customer.profilepic.url }}" alt="Profile Picture" class="profile-pic">
+                        {% else %}
+                        No picture available
+                        {% endif %}
+                    </td>
+                    {% if user == 'aagaman' %}
+                    <td>
+                       <a href="{% url 'update' customer.id %}" name="update">update</a>
+                        <!-- <button value="{{customer.id}}" name='Delete'>Delete</button> -->
+                         <a href="{% url 'deleteuser' customer.id %}">Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No customer data available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </form>
+    </table>
+    <div class="btn">
+        <a href="{% url 'Homepage'%}">Home</a>
+        {% if user == 'aagaman' %}
+    <a href="{% url 'admin:index' %}">Admin</a>
+    <a href="{% url 'customerForm' %}">Customer Register</a>
+    <a href="{% url 'productForm' %}">Product Register</a>
+    {% endif %}
+    <a href="{% url 'customerdetails' %}">Customer Details</a>
+    </div>
+</body>
+</html>
