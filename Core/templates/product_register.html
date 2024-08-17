@@ -6,75 +6,90 @@
     <title>Create Product</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #ffffff ;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Matching font family */
+            background-color: #f2f2f2; /* Matching background color */
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
+
         .container {
-            background: #fff;
-            padding: 20px;
+            background-color: #ffffff;
+            padding: 30px; /* Increased padding for consistency */
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 400px;
+            width: 100%;
+            border: 1px solid #ddd; /* Matching border color */
         }
+
         h1 {
-            margin-bottom: 20px;
             text-align: center;
-            color: #333;
+            color: #6a0dad; /* Matching purple color */
+            margin-bottom: 20px;
             font-size: 24px;
+            font-weight: 600;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
             font-size: 16px;
+            color: #555;
+            font-weight: 500;
         }
+
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            padding: 12px 15px; /* Consistent padding */
+            border-radius: 6px;
+            border: 1px solid #ddd; /* Matching border color */
             font-size: 16px;
+            box-sizing: border-box;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
         .form-group input:focus {
-            border-color: #6a1b9a;
+            border-color: #6a0dad; /* Purple border on focus */
             box-shadow: 0 0 5px rgba(106, 27, 154, 0.5);
             outline: none;
         }
+
         .form-group button {
-            width: 100%;
-            padding: 12px;
+            background-color: #6a0dad; /* Purple button */
+            color: white;
             border: none;
-            border-radius: 8px;
-            background-color: #6a1b9a;
-            color: #fff;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
             font-size: 18px;
+            margin-top: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
         }
+
         .form-group button:hover {
-            background-color: #4a0072;
-            transform: scale(1.02);
+            background-color: #5c00a1; /* Darker purple on hover */
+            transform: translateY(-2px);
         }
-        a:hover {
-            background-color: #4a0072;
-            /* Darker purple on hover */
+
+        .form-group button:active {
+            background-color: #4b0082; /* Even darker purple on active */
+            transform: translateY(0);
         }
 
         a {
-            background-color: #6a1b9a;
-            /* Purple background */
+            background-color: #6a0dad; /* Purple background */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -84,8 +99,13 @@
             margin: 0 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
             text-decoration: none;
-            color: #ffffff;
+            display: inline-block;
         }
+
+        a:hover {
+            background-color: #5c00a1; /* Darker purple on hover */
+        }
+
         .btn {
             display: flex;
             justify-content: center; /* Centers items horizontally */
@@ -104,7 +124,7 @@
             </div>
             <div class="form-group">
                 <label for="id_price">Enter Product Price:</label>
-                <input type="Text" id="id_price" name="price" min="0" required>
+                <input type="text" id="id_price" name="price" min="0" required>
             </div>
             <div class="form-group">
                 <button type="submit">Submit</button>

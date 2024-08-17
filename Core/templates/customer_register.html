@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6a0dad; /* Purple color */
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #6a0dad; /* Purple border */
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="file"]:focus,
+        select:focus {
+            border-color: #4b0082; /* Darker purple on focus */
+            outline: none;
+        }
+
+        button {
+            background-color: #6a0dad; /* Purple button */
+            color: white;
+            border: 1px solid #6a0dad; /* Purple border */
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin-top: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #5c00a1; /* Darker purple on hover */
+            border-color: #5c00a1; /* Darker purple border on hover */
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #4b0082; /* Even darker purple on active */
+            border-color: #4b0082; /* Even darker purple border on active */
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register Customer</h1>
+        <form action="{% url 'customerForm' %}" method="post" enctype="multipart/form-data">
+            <!-- Include CSRF Token for security (if using Django) -->
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="c_name">Customer Name:</label>
+                <input type="text" id="c_name" name="c_name" required aria-required="true">
+            </div>
+            
+            <div class="form-group">
+                <label for="purchase_product">Purchased Product:</label>
+                <select id="purchase_product" name="purchase_product" required aria-required="true">
+                    <option value="" disabled selected>Select a product</option>
+                    {% for i in products %}
+                    <option value="{{ i.prdctname }}">{{ i.prdctname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="purchase_date">Purchase Date:</label>
+                <input type="date" id="purchase_date" name="purchase_date" required aria-required="true">
+            </div>
+            
+            <div class="form-group">
+                <label for="picture">Profile Picture (optional):</label>
+                <input type="file" id="picture" name="picture" aria-label="Upload profile picture">
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

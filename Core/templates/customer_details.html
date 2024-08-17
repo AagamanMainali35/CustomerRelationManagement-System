@@ -8,28 +8,29 @@
     {% load static %} <!-- Load the static template tag -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Matching font family */
+            background-color: #f2f2f2; /* Matching background color */
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
             color: #333;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #6a0dad; /* Purple color for the heading */
             margin-top: 20px;
+            font-size: 24px; /* Matching font size */
+            font-weight: 600;
         }
 
         table {
-            width: auto;
-            /* Let the table fit its content */
+            width: 90%;
+            /* Adjusted width for better fit */
             margin: 20px auto;
             border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
             table-layout: auto;
-            /* Automatically adjust column widths based on content */
         }
 
         table,
@@ -45,8 +46,7 @@
         }
 
         th {
-            background-color: #6a1b9a;
-            /* Changed to purple */
+            background-color: #6a0dad; /* Purple background */
             color: white;
             font-weight: bold;
         }
@@ -56,10 +56,10 @@
         }
 
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #eaeaea; /* Light gray on hover */
         }
 
-        td[colspan="4"] {
+        td[colspan="6"] {
             text-align: center;
             font-style: italic;
             color: #666;
@@ -71,27 +71,24 @@
             object-fit: cover;
             border-radius: 50%;
         }
-        
-
-        a:hover {
-            background-color: #4a148c;
-            /* Darker purple on hover */
-        }
 
         a {
-            background-color: #6a1b9a;
-            /* Purple background */
+            background-color: #6a0dad; /* Purple background */
             color: white;
             border: none;
             padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px; /* Matching font size */
             margin: 0 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             text-decoration: none;
-            color: #ffffff;
         }
+
+        a:hover {
+            background-color: #5c00a1; /* Darker purple on hover */
+        }
+
         .btn {
             display: flex;
             justify-content: center; /* Centers items horizontally */
@@ -99,62 +96,59 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Customer List</h1>
     <table>
-        <form action="{% url 'customerdetails' %}" method="post">
-              {% csrf_token %}
-            <thead>
-                <tr>
-                    <th>Sn.No</th>
-                    <th>Customer Name</th>
-                    <th>Date</th>
-                    <th>Purchased Product</th>
-                    <th>Profile Picture</th>
-                    {% if user == 'aagaman' %}
-                        <th>Actions</th>
-                    {% endif %}
-                    
-                </tr>
-            </thead>
-            <tbody>   
-                {% for customer in details %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ customer.c_name }}</td>
-                    <td>{{ customer.Date }}</td>
-                    <td>{{ customer.Purchase_product }}</td>
-                    <td>
-                        {% if customer.profilepic %}
+        <thead>
+            <tr>
+                <th>Sn.No</th>
+                <th>Customer Name</th>
+                <th>Date</th>
+                <th>Purchased Product</th>
+                <th>Profile Picture</th>
+                {% if user == 'aagaman' %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in details %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ customer.c_name }}</td>
+                <td>{{ customer.Date }}</td>
+                <td>{{ customer.Purchase_product }}</td>
+                <td>
+                    {% if customer.profilepic %}
                         <img src="{{ customer.profilepic.url }}" alt="Profile Picture" class="profile-pic">
-                        {% else %}
+                    {% else %}
                         No picture available
-                        {% endif %}
-                    </td>
-                    {% if user == 'aagaman' %}
-                    <td>
-                       <a href="{% url 'update' customer.id %}" name="update">update</a>
-                        <!-- <button value="{{customer.id}}" name='Delete'>Delete</button> -->
-                         <a href="{% url 'deleteuser' customer.id %}">Delete</a>
-                    </td>
                     {% endif %}
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">No customer data available.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </form>
+                </td>
+                {% if user == 'aagaman' %}
+                <td>
+                    <a href="{% url 'update' customer.id %}">Update</a>
+                    <a href="{% url 'deleteuser' customer.id %}">Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No customer data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <div class="btn">
-        <a href="{% url 'Homepage'%}">Home</a>
+        <a href="{% url 'Homepage' %}">Home</a>
         {% if user == 'aagaman' %}
-    <a href="{% url 'admin:index' %}">Admin</a>
-    <a href="{% url 'customerForm' %}">Customer Register</a>
-    <a href="{% url 'productForm' %}">Product Register</a>
-    {% endif %}
-    <a href="{% url 'customerdetails' %}">Customer Details</a>
+        <a href="{% url 'admin:index' %}">Admin</a>
+        <a href="{% url 'customerForm' %}">Customer Register</a>
+        <a href="{% url 'productForm' %}">Product Register</a>
+        {% endif %}
+        <a href="{% url 'customerdetails' %}">Customer Details</a>
     </div>
 </body>
+
 </html>
