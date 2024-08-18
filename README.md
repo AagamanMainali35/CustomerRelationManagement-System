@@ -23,7 +23,7 @@ Responsive Design with Modern Styling 🎨
 **Technologies Used:**
 
 Django 🐍
-HTML/CSS 🌐
+HTML/CSS/JS 🌐
 
 
 
