@@ -45,7 +45,7 @@ def customer_form(request):
         profilepic = request.FILES.get('picture')
         Customer_data = customer.objects.create(c_name=cus_name,Purchase_product=Purchase,Date=DateOrder, profilepic=profilepic)
         print(Customer_data.profilepic)
-        # return redirect('customerdetails') 
+        return redirect('customerdetails') 
     return render(request, 'customer_register.html', context)
 
 
@@ -56,7 +56,6 @@ def customer_details(request):
     details = customer.objects.all()
     users = request.user
     print("Request user:", users)
-        
     Logged_in_user = users.username 
     context = {'details': details, 'user': Logged_in_user}
     return render(request, 'customer_details.html', context)
