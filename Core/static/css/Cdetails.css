@@ -1,0 +1,89 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Matching font family */
+    background-color: #f2f2f2; /* Matching background color */
+    margin: 0;
+    padding: 0;
+    color: #333;
+    padding-bottom: 50px; /* Added padding to create gap at the bottom */
+}
+
+h1 {
+    text-align: center;
+    color: #6a0dad; /* Purple color for the heading */
+    margin-top: 20px;
+    font-size: 24px; /* Matching font size */
+    font-weight: 600;
+}
+
+table {
+    width: 90%;
+    /* Adjusted width for better fit */
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    table-layout: auto;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #6a0dad; /* Purple background */
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #eaeaea; /* Light gray on hover */
+}
+
+td[colspan="6"] {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+a {
+    background-color: #6a0dad; /* Purple background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px; /* Matching font size */
+    margin: 0 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #5c00a1; /* Darker purple on hover */
+}
+
+.btn {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    margin-top: 20px; /* Optional: adds some space above the div */
+}
