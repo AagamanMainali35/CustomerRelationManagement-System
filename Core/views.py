@@ -13,7 +13,8 @@ def errored(request):
 def home(request):
     users=request.user
     Logged_in_user=users.username 
-    context = {'user':Logged_in_user}
+    print(users.username)
+    context = {'user':Logged_in_user , 'usere':users}
     return render(request,'home.html',context=context)
 
 @login_required(login_url='loginuser')
@@ -38,7 +39,7 @@ def customer_form(request):
         profilepic = request.FILES.get('picture')
         Customer_data = customer.objects.create(c_name=cus_name,Purchase_product=Purchase,Date=DateOrder, profilepic=profilepic)
         print(Customer_data.profilepic)
-        return redirect('customerdetails') 
+        # return redirect('customerdetails') 
     return render(request, 'customer_register.html', context)
 
 @login_required(login_url='loginuser')
@@ -72,6 +73,7 @@ def update(request,id):
         person2.c_name=name
         person2.Date=DateOrder
         person2.Purchase_product=Purchase
+        person2.profilepic=pic
         person2.save()
         # person2=customer.objects.filter(id=id)
         # person2.update(c_name=name,Date=DateOrder,Purchase_product=Purchase)

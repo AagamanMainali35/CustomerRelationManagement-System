@@ -77,7 +77,7 @@ h1 {
 <body>
     
     <div class="container">
-        <h1>Welcome to Our Home Page {{user}}</h1>
+        <h1>Welcome to Home Page </h1>
         <p class="welcome-message">We're glad to have you here. Explore our services and get started with ease.</p>
         <div class="images">
             <img src="https://images.unsplash.com/photo-1499096382193-ebb232527fee?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Beautiful landscape view with mountains and lake">
@@ -86,13 +86,17 @@ h1 {
         </div>
         <div class="buttons">
             <a href="{% url 'Homepage'%}">Home</a>
-            {% if user == 'aagaman' %}
+            {% if user == 'admin' %}
                 <a href="{% url 'admin:index' %}">Admin</a>
                 <a href="{% url 'customerForm' %}">Customer Register</a>
                 <a href="{% url 'productForm' %}">Product Register</a>
             {% endif %}
             <a href="{% url 'customerdetails' %}">Customer Details</a>
+            {% if user == '' %}
+            <a href="{% url 'loginuser' %}">login</a>
+            {% else %}
             <a href="{% url 'logout' %}">logout</a>
+            {% endif %}
         </div>
     </div>
 </body>

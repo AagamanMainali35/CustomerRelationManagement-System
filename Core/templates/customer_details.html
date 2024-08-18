@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
             color: #333;
+            padding-bottom: 50px; /* Added padding to create gap at the bottom */
         }
 
         h1 {
@@ -96,7 +97,6 @@
         }
     </style>
 </head>
-
 <body>
     <h1>Customer List</h1>
     <table>
@@ -107,7 +107,7 @@
                 <th>Date</th>
                 <th>Purchased Product</th>
                 <th>Profile Picture</th>
-                {% if user == 'aagaman' %}
+                {% if user == 'admin' %}
                     <th>Actions</th>
                 {% endif %}
             </tr>
@@ -126,7 +126,7 @@
                         No picture available
                     {% endif %}
                 </td>
-                {% if user == 'aagaman' %}
+                {% if user == 'admin' %}
                 <td>
                     <a href="{% url 'update' customer.id %}">Update</a>
                     <a href="{% url 'deleteuser' customer.id %}">Delete</a>
@@ -142,7 +142,7 @@
     </table>
     <div class="btn">
         <a href="{% url 'Homepage' %}">Home</a>
-        {% if user == 'aagaman' %}
+        {% if user == 'admin' %}
         <a href="{% url 'admin:index' %}">Admin</a>
         <a href="{% url 'customerForm' %}">Customer Register</a>
         <a href="{% url 'productForm' %}">Product Register</a>
