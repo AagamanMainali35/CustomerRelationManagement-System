@@ -1,24 +1,27 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 from Core.models import *
 from Core.models import *
 from Core.forms import *
-def errored(request):
-    return render(request,'errorpage.html')
 
 
 def home(request):
     users=request.user
     Logged_in_user=users.username 
-    print(users.username)
+    # if  not users.is_authenticated:
+    #         messages.error(request, "Please login to use this Page")
+    #         return render(request, 'login.html')
     context = {'user':Logged_in_user , 'usere':users}
     return render(request,'home.html',context=context)
 
-@login_required(login_url='loginuser')
+
 def product_form(request):
+    if  not request.user.is_authenticated:
+        messages.error(request, "Please login to use this Page")
+        return render(request, 'login.html')
     if request.method =='POST':
         name = request.POST.get('prdctname')
         price = request.POST.get('price')
@@ -28,10 +31,13 @@ def product_form(request):
         return redirect('Homepage')
     return render(request,'product_register.html')
 
-@login_required(login_url='loginuser')
+
 def customer_form(request):
     Products = product.objects.all()
     context = {'products': Products} 
+    if  not request.user.is_authenticated:
+        messages.error(request, "Please login to use this Page")
+        return render(request, 'login.html')
     if request.method == 'POST':
         cus_name = request.POST.get('c_name')
         Purchase = request.POST.get('purchase_product')
@@ -42,24 +48,28 @@ def customer_form(request):
         # return redirect('customerdetails') 
     return render(request, 'customer_register.html', context)
 
-@login_required(login_url='loginuser')
-def customer_details(request):
-        details = customer.objects.all()
-        users=request.user
-        Logged_in_user=users.username 
-        context = {'details': details,'user':Logged_in_user}
-        return render(request, 'customer_details.html', context)
 
-@login_required(login_url='loginuser')
+def customer_details(request):
+    if  not request.user.is_authenticated:
+        messages.error(request, "Please login to use this Page")
+        return render(request, 'login.html')
+    details = customer.objects.all()
+    users = request.user
+    print("Request user:", users)
+        
+    Logged_in_user = users.username 
+    context = {'details': details, 'user': Logged_in_user}
+    return render(request, 'customer_details.html', context)
+
+        
+
 def delete(request,id):
-    print(id)
     if id:
         person = customer.objects.get(id=id)
         person.delete() 
         return redirect('customerdetails')
     return render(request,'customer_details.html')
 
-@login_required(login_url='loginuser')
 def update(request,id):
     customers=customer.objects.get(id=id)
     products=product.objects.all()
@@ -80,20 +90,7 @@ def update(request,id):
         return redirect('customerdetails')
     return render(request, 'update.html',context)
 
-@login_required(login_url='loginuser')
-def formUser(request):
-    form=addtsudentForm()
-    if request.method == 'POST':
-        fromdata=addtsudentForm(request.POST)
-        if fromdata.is_valid():
-            form.save()
-            return redirect('Homepage')
-    context={
-        'form':form
-    }
-    return render(request,'form.html',context=context)
     
-
 def register(request):
     if request.method == "POST":
         username=request.POST.get('username')
@@ -113,11 +110,12 @@ def loginuser(request):
     if request.method == 'POST':
         username = request.POST.get('Lusername')
         password = request.POST.get('Lpassword')
-        user = authenticate( username=username, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
-            return redirect('Homepage')
+            login(request, user)
+            return redirect('Homepage')  
         else:
+            messages.error(request, "Invalid username or password.")
             return render(request, 'login.html')
     return render(request, 'login.html')
 

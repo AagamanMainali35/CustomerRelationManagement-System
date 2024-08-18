@@ -17,6 +17,7 @@
     body {
       min-height: 100vh;
       width: 100%;
+      position: relative;
     }
     .container {
       position: absolute;
@@ -95,25 +96,62 @@
     .signup label:hover {
       text-decoration: underline;
     }
+
+    /* Info alert styling */
+    .info-alert {
+      position: fixed;
+      top: 20px; /* Adjust as needed for margin from the top */
+      right: 20px; /* Adjust as needed for margin from the right */
+      background-color: #e7f5ff;
+      color: #007bff;
+      border: 1px solid #007bff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      z-index: 1000; /* Ensure it is above other content */
+      opacity: 1;
+      transition: opacity 0.5s ease-out;
+    }
+    .info-alert.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .info-alert.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+    .info-alert.info {
+      background-color: #e7f5ff;
+      color: #007bff;
+      border: 1px solid #007bff;
+    }
   </style>
 </head>
 <body>
+  <!-- Info Alert -->
+  {% for msg in messages %}
+      <div class="info-alert {{ msg.tags }}">
+        {{ msg.message }}
+      </div>
+  {% endfor %}
   <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
       <form action="{% url 'loginuser' %}" method="POST">
         {% csrf_token %}
-      <header>Login</header>
+        <header>Login</header>
         <input type="text" name="Lusername" placeholder="Enter your Username" required>
         <input type="password" name="Lpassword" placeholder="Enter your password" required>
         <a href="#">Forgot password?</a>
         <input type="submit" class="button" value="Login">
+        <div class="signup">
+          <span class="signup">Don't have an account?
+            <label for="check">Signup</label>
+          </span>
+        </div>
       </form>
-      <div class="signup">
-        <span class="signup">Don't have an account?
-          <label for="check">Signup</label>
-        </span>
-      </div>
     </div>
     <div class="registration form">
       <form action="{% url 'register' %}" method="post">
