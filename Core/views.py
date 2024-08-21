@@ -121,5 +121,5 @@ def loginuser(request):
 @login_required(login_url='loginuser')
 def logouts(request):
     logout(request)
-    return redirect('login/')
+    return redirect('loginuser')
 

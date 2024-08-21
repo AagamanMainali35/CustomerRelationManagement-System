@@ -13,5 +13,5 @@ urlpatterns = [
     path('delete/<int:id>',delete,name='deleteuser'),
     path('register/',register,name='register'),
     path('login/',loginuser,name='loginuser'),
-    path('logout',logouts,name='logout'),
+    path('logout/',logouts,name='logout'),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
